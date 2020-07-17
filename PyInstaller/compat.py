@@ -37,6 +37,7 @@ is_py37 = sys.version_info >= (3, 7)
 is_win = sys.platform.startswith('win')
 is_win_10 = is_win and (platform.win32_ver()[0] == '10')
 is_cygwin = sys.platform == 'cygwin'
+is_msys = sys.platform.startswith('msys')
 is_darwin = sys.platform == 'darwin'  # Mac OS X
 
 # Unix platforms
@@ -59,9 +60,15 @@ _pyver = sys.version_info[:2]
 if is_win or is_cygwin:
     PYDYLIB_NAMES = {'python%d%d.dll' % _pyver,
                      'libpython%d%d.dll' % _pyver,
-                     'libpython%d%dm.dll' % _pyver,
-                     'libpython%d.%d.dll' % _pyver,
-                     'libpython%d.%dm.dll' % _pyver}  # For MSYS2 environment
+                     'libpython%d%dm.dll' % _pyver}
+elif is_msys:
+    # For MSYS2 environment
+    PYDYLIB_NAMES = {
+        'msys-python%d%d.dll' % _pyver,
+        'msys-python%d.%d.dll' % _pyver,
+        'msys-python%d%dm.dll' % _pyver,
+        'msys-python%d.%dm.dll' % _pyver,
+    }
 elif is_darwin:
     # libpython%d.%dm.dylib for Conda virtual environment installations
     PYDYLIB_NAMES = {'Python', '.Python',
