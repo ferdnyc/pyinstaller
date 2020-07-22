@@ -51,6 +51,7 @@ DESTOS_TO_SYSTEM = {
     'openbsd': 'OpenBSD',
     'win32': 'Windows',
     'msys': platform.system(),  ## Versioned values e.g. MSYS_NT-6.1-7601
+    'cygwin': platform.system(),  ## XXX: This fixes MSYS2, not sure why
     'darwin': 'Darwin',
     'sunos': platform.system(),  ## FIXME: inhibits cross-compile
     'hpux': 'HP-UX',
