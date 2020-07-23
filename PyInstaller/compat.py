@@ -59,9 +59,14 @@ is_unix = is_linux or is_solar or is_aix or is_freebsd or is_hpux or is_openbsd
 # On different platforms is different file for dynamic python library.
 _pyver = sys.version_info[:2]
 if is_win or is_cygwin:
-    PYDYLIB_NAMES = {'python%d%d.dll' % _pyver,
-                     'libpython%d%d.dll' % _pyver,
-                     'libpython%d%dm.dll' % _pyver}
+    PYDYLIB_NAMES = {
+        'python%d%d.dll' % _pyver,
+        'libpython%d%d.dll' % _pyver,
+        'libpython%d%dm.dll' % _pyver,
+        # For MinGW environment
+        'libpython%d.%d.dll' % _pyver,
+        'libpython%d.%dm.dll' % _pyver,
+    }
 elif is_msys:
     # For MSYS2 environment
     PYDYLIB_NAMES = {
